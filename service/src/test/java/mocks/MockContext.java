@@ -76,4 +76,23 @@ public class MockContext extends Context {
                 .sessionData(sessionData)
                 .build();
     }
+    public static FlightData createFlightToCountry(CountryCode destinationCountry) {
+    return FlightData.builder()
+            .flightNumber("XX123")
+            .price(150L)
+            .departure(
+                    Airport.builder()
+                            .airportCode("JFK")
+                            .countryCode(CountryCode.US)
+                            .build())
+            .destination(
+                    Airport.builder()
+                            .airportCode("XXX")
+                            .countryCode(CountryCode.CN)
+                            .build())
+            .build();
+        }
+
 }
+
+

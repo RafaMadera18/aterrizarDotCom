@@ -1,9 +1,8 @@
 package com.aterrizar.service.checkin.flow;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.aterrizar.service.checkin.steps.AgreementSignStep;
 import com.aterrizar.service.checkin.steps.CompleteCheckinStep;
 import com.aterrizar.service.checkin.steps.GetSessionStep;
+import com.aterrizar.service.checkin.steps.HealthDeclarationStep;
 import com.aterrizar.service.checkin.steps.PassportInformationStep;
 import com.aterrizar.service.checkin.steps.SaveSessionStep;
 import com.aterrizar.service.checkin.steps.ValidateSessionStep;
@@ -29,6 +29,7 @@ class GeneralContinueFlowTest {
     @Mock private AgreementSignStep agreementSignStep;
     @Mock private SaveSessionStep saveSessionStep;
     @Mock private CompleteCheckinStep completeCheckinStep;
+    @Mock private HealthDeclarationStep healthDeclarationStep;
     @InjectMocks private GeneralContinueFlow generalContinueFlow;
 
     @Test
@@ -37,14 +38,16 @@ class GeneralContinueFlowTest {
         var flowExecutor = new MockFlowExecutor();
         generalContinueFlow.flow(flowExecutor).execute(context);
 
-        assertEquals(5, flowExecutor.getExecutedSteps().size());
+        assertEquals(6, flowExecutor.getExecutedSteps().size());
         assertEquals(
                 List.of(
                         "GetSessionStep",
                         "ValidateSessionStep",
                         "PassportInformationStep",
+                        "HealthDeclarationStep",
                         "AgreementSignStep",
                         "CompleteCheckinStep"),
                 flowExecutor.getExecutedSteps());
     }
 }
+
